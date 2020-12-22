@@ -1,0 +1,388 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://bodies/cell/Cell.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/level/Level.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/Roboto/Roboto-Black.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/images/check.png" type="Texture" id=4]
+[ext_resource path="res://assets/fonts/Roboto/Roboto-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://assets/images/eraser.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/trophy.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/house.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/power.png" type="Texture" id=9]
+[ext_resource path="res://assets/fonts/Roboto/Level.tres" type="DynamicFont" id=10]
+[ext_resource path="res://assets/images/right-arrow.png" type="Texture" id=11]
+[ext_resource path="res://assets/images/wallpaper.jpeg" type="Texture" id=12]
+[ext_resource path="res://assets/fonts/Roboto/Roboto-Bold.ttf" type="DynamicFontData" id=13]
+
+[sub_resource type="DynamicFont" id=4]
+size = 72
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.129412, 0.105882, 0.32549, 1 )
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+
+[sub_resource type="StreamTexture" id=2]
+flags = 4
+load_path = "res://.import/lamp2.png-322da9a5ff0d28e81e536f2fd3a3505f.stex"
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+outline_size = 2
+outline_color = Color( 0.8, 0.639216, 0.207843, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = 6
+font_data = ExtResource( 5 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "incorrect"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("CenterContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="DynamicFont" id=6]
+size = 70
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 13 )
+
+[node name="Level" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 32
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 166.0
+margin_right = 720.0
+margin_bottom = 230.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 312.0
+margin_right = 376.0
+margin_bottom = 64.0
+texture = ExtResource( 7 )
+stretch_mode = 4
+
+[node name="Level" type="Label" parent="VBoxContainer/HBoxContainer2"]
+margin_left = 380.0
+margin_top = 3.0
+margin_right = 408.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 3
+custom_constants/shadow_offset_y = 3
+text = "1"
+align = 1
+
+[node name="YouWin" type="Label" parent="VBoxContainer"]
+visible = false
+margin_top = 280.0
+margin_right = 720.0
+margin_bottom = 365.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "You Win!"
+align = 1
+
+[node name="Cells" type="GridContainer" parent="VBoxContainer"]
+margin_top = 262.0
+margin_right = 720.0
+margin_bottom = 982.0
+rect_min_size = Vector2( 360, 720 )
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+columns = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cell" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_right = 136.0
+margin_bottom = 136.0
+
+[node name="Cell2" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 146.0
+margin_right = 282.0
+margin_bottom = 136.0
+
+[node name="Cell3" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 292.0
+margin_right = 428.0
+margin_bottom = 136.0
+
+[node name="Cell4" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 438.0
+margin_right = 574.0
+margin_bottom = 136.0
+
+[node name="Cell5" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 584.0
+margin_right = 720.0
+margin_bottom = 136.0
+
+[node name="Cell6" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_top = 146.0
+margin_right = 136.0
+margin_bottom = 282.0
+
+[node name="Cell7" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 146.0
+margin_top = 146.0
+margin_right = 282.0
+margin_bottom = 282.0
+
+[node name="Cell8" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 292.0
+margin_top = 146.0
+margin_right = 428.0
+margin_bottom = 282.0
+
+[node name="Cell9" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 438.0
+margin_top = 146.0
+margin_right = 574.0
+margin_bottom = 282.0
+
+[node name="Cell10" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 584.0
+margin_top = 146.0
+margin_right = 720.0
+margin_bottom = 282.0
+
+[node name="Cell11" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_top = 292.0
+margin_right = 136.0
+margin_bottom = 428.0
+
+[node name="Cell12" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 146.0
+margin_top = 292.0
+margin_right = 282.0
+margin_bottom = 428.0
+
+[node name="Cell13" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 292.0
+margin_top = 292.0
+margin_right = 428.0
+margin_bottom = 428.0
+
+[node name="Cell14" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 438.0
+margin_top = 292.0
+margin_right = 574.0
+margin_bottom = 428.0
+
+[node name="Cell15" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 584.0
+margin_top = 292.0
+margin_right = 720.0
+margin_bottom = 428.0
+
+[node name="Cell16" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_top = 438.0
+margin_right = 136.0
+margin_bottom = 574.0
+
+[node name="Cell17" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 146.0
+margin_top = 438.0
+margin_right = 282.0
+margin_bottom = 574.0
+
+[node name="Cell18" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 292.0
+margin_top = 438.0
+margin_right = 428.0
+margin_bottom = 574.0
+
+[node name="Cell19" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 438.0
+margin_top = 438.0
+margin_right = 574.0
+margin_bottom = 574.0
+
+[node name="Cell20" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 584.0
+margin_top = 438.0
+margin_right = 720.0
+margin_bottom = 574.0
+
+[node name="Cell21" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_top = 584.0
+margin_right = 136.0
+margin_bottom = 720.0
+
+[node name="Cell22" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 146.0
+margin_top = 584.0
+margin_right = 282.0
+margin_bottom = 720.0
+
+[node name="Cell23" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 292.0
+margin_top = 584.0
+margin_right = 428.0
+margin_bottom = 720.0
+
+[node name="Cell24" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 438.0
+margin_top = 584.0
+margin_right = 574.0
+margin_bottom = 720.0
+
+[node name="Cell25" parent="VBoxContainer/Cells" instance=ExtResource( 1 )]
+margin_left = 584.0
+margin_top = 584.0
+margin_right = 720.0
+margin_bottom = 720.0
+
+[node name="Panel" type="Panel" parent="VBoxContainer"]
+margin_left = 60.0
+margin_top = 1014.0
+margin_right = 660.0
+margin_bottom = 1114.0
+rect_min_size = Vector2( 600, 100 )
+size_flags_horizontal = 4
+custom_styles/panel = SubResource( 7 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 48
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Next" type="TextureButton" parent="VBoxContainer/Panel/HBoxContainer"]
+visible = false
+margin_left = 48.0
+margin_right = 112.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 0 )
+texture_normal = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+
+[node name="Home" type="TextureButton" parent="VBoxContainer/Panel/HBoxContainer"]
+margin_left = 44.0
+margin_right = 108.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 64, 0 )
+texture_normal = ExtResource( 8 )
+expand = true
+stretch_mode = 5
+
+[node name="Check" type="TextureButton" parent="VBoxContainer/Panel/HBoxContainer"]
+margin_left = 156.0
+margin_right = 220.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 64, 0 )
+texture_normal = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+
+[node name="Eraser" type="TextureButton" parent="VBoxContainer/Panel/HBoxContainer"]
+margin_left = 268.0
+margin_right = 332.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 64, 0 )
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="Clue" type="TextureButton" parent="VBoxContainer/Panel/HBoxContainer"]
+margin_left = 380.0
+margin_right = 444.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 64, 0 )
+texture_normal = SubResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer/Panel/HBoxContainer/Clue"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 3 )
+text = "5
+"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Solve" type="TextureButton" parent="VBoxContainer/Panel/HBoxContainer"]
+margin_left = 492.0
+margin_right = 556.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 64, 0 )
+texture_normal = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/incorrect = SubResource( 5 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CenterContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 207.0
+margin_top = 598.0
+margin_right = 513.0
+margin_bottom = 681.0
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+text = "Incorrect!"
+align = 1
+valign = 1

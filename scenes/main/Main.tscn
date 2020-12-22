@@ -1,0 +1,136 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/main/Main.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Roboto/Roboto-Black.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/images/button_pressed.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/button_normal.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/button_hover.png" type="Texture" id=5]
+[ext_resource path="res://assets/fonts/Roboto/Cell.tres" type="DynamicFont" id=6]
+[ext_resource path="res://assets/images/trophy.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/wallpaper.jpeg" type="Texture" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+size = 140
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 72
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 7
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+margin_top = 32.0
+margin_right = -32.0
+margin_bottom = 76.0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+margin_left = 512.0
+margin_right = 576.0
+margin_bottom = 64.0
+size_flags_vertical = 0
+texture = ExtResource( 7 )
+stretch_mode = 6
+
+[node name="Level" type="Label" parent="HBoxContainer"]
+margin_left = 580.0
+margin_right = 688.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 5
+custom_constants/shadow_offset_y = 5
+text = "780"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 32
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 277.0
+margin_right = 720.0
+margin_bottom = 637.0
+rect_min_size = Vector2( 0, 360 )
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 10
+custom_constants/shadow_offset_y = 10
+text = "LOGI-5"
+align = 1
+
+[node name="Play" type="TextureButton" parent="VBoxContainer"]
+margin_top = 670.0
+margin_right = 720.0
+margin_bottom = 820.0
+rect_min_size = Vector2( 0, 150 )
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
+expand = true
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Play"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Play"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play2" type="TextureButton" parent="VBoxContainer"]
+margin_top = 852.0
+margin_right = 720.0
+margin_bottom = 1002.0
+rect_min_size = Vector2( 0, 150 )
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 5 )
+expand = true
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Play2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Tutorial"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
