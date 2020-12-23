@@ -49,6 +49,7 @@ __meta__ = {
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 modulate = Color( 1, 1, 1, 0 )

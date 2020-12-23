@@ -34,3 +34,4 @@ func pressed():
 			var n = int(Number.text) + 1
 			Number.text = str(n)
 		get_tree().current_scene.save_actual_game()
+		Audio.play("Touch")

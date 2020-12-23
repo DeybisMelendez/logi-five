@@ -39,6 +39,7 @@ func _ready():
 	HomeWin.connect("button_up", self, "go_home")
 
 func pause():
+	Audio.play("Select")
 	CountTime.stop()
 	MenuPause.show()
 
@@ -60,6 +61,7 @@ func go_home():
 	Background.change_scene(HOME_PATH)
 
 func erase():
+	Audio.play("Wrong")
 	for cell in Cells:
 		if cell.state == "editable":
 			cell.set_number("")
@@ -77,6 +79,7 @@ func check_solution():
 	for cell in Cells:
 		user_solution += cell.get_number()
 	if data.solution == user_solution:
+		Audio.play("Select")
 		for cell in Cells:
 			if cell.state == "editable":
 				cell.solved(cell.get_number())
@@ -86,16 +89,19 @@ func check_solution():
 		MenuWin.show()
 		var best = check_best_time()
 		if best:
+			Audio.play("NewRecord")
 			Best.text = str(time)
 			NewRecord.show()
 			stats.best = time
 		else:
+			Audio.play("Win")
 			Best.text = str(get_best_time())
 		TimeWin.text = str(time)
 		stats.history.append(time)
 		Globals.save_stats()
 	else:
 		Anim.play("incorrect")
+		Audio.play("Wrong")
 
 func get_best_time():
 	var best = 10000000

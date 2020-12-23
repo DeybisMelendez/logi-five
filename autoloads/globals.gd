@@ -2,6 +2,7 @@ extends Node
 var actual_difficulty = "Hard"
 var levels = []
 var user_data = {
+	can_play_sound = true,
 	diff = {
 		Easy = {
 			game = "",

@@ -1,6 +1,7 @@
 extends TextureRect
 
 func change_scene(scn):
+	Audio.play("Select")
 	get_tree().paused = true
 	$AnimationPlayer.play("fade_in")
 	yield($AnimationPlayer,"animation_finished")
@@ -9,6 +10,7 @@ func change_scene(scn):
 	get_tree().paused = false
 
 func reload():
+	Audio.play("Select")
 	get_tree().paused = true
 	$AnimationPlayer.play("fade_in")
 	yield($AnimationPlayer,"animation_finished")
