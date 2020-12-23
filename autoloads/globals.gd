@@ -37,17 +37,17 @@ var stats = {
 	diff = {
 		Hard = {
 			trophies = 0,
-			best = [],
+			best = 0,
 			history = []
 		},
 		Medium = {
 			trophies = 0,
-			best = [],
+			best = 0,
 			history = []
 		},
 		Easy = {
 			trophies = 0,
-			best = [],
+			best = 0,
 			history = []
 		}
 	}
@@ -81,6 +81,9 @@ func load_levels():
 
 func save_game():
 	save_file("user://user.dat", user_data)
+
+func save_stats():
+	save_file("user://stats.dat", stats)
 
 func save_file(file_path, data):
 	var f = File.new()

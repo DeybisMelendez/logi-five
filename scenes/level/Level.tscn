@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://bodies/cell/Cell.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/level/Level.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/fonts/Roboto/Roboto-Bold.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://assets/images/pause.png" type="Texture" id=14]
 [ext_resource path="res://bodies/button/Button.tscn" type="PackedScene" id=15]
+[ext_resource path="res://assets/images/new.png" type="Texture" id=16]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.129412, 0.105882, 0.32549, 1 )
@@ -67,6 +68,8 @@ font_data = ExtResource( 13 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 120
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 13 )
@@ -161,18 +164,6 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
 text = "1:20:30"
-align = 1
-
-[node name="YouWin" type="Label" parent="VBoxContainer2/VBoxContainer"]
-visible = false
-margin_top = 138.0
-margin_right = 720.0
-margin_bottom = 223.0
-custom_fonts/font = SubResource( 3 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 5
-custom_constants/shadow_offset_y = 5
-text = "You Win!"
 align = 1
 
 [node name="Solve" type="Label" parent="VBoxContainer2/VBoxContainer"]
@@ -341,26 +332,27 @@ margin_right = 720.0
 margin_bottom = 720.0
 
 [node name="Panel" type="Panel" parent="VBoxContainer2/VBoxContainer"]
-margin_left = 60.0
+margin_left = 184.0
 margin_top = 948.0
-margin_right = 660.0
+margin_right = 534.0
 margin_bottom = 1048.0
-rect_min_size = Vector2( 600, 100 )
+rect_min_size = Vector2( 350, 100 )
 size_flags_horizontal = 4
 custom_styles/panel = ExtResource( 11 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/VBoxContainer/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 48
+custom_constants/separation = 64
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Home" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 44.0
-margin_right = 108.0
+visible = false
+margin_left = 31.0
+margin_right = 95.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 64, 0 )
 texture_normal = ExtResource( 8 )
@@ -368,8 +360,8 @@ expand = true
 stretch_mode = 5
 
 [node name="Check" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 156.0
-margin_right = 220.0
+margin_left = 79.0
+margin_right = 143.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 64, 0 )
 texture_normal = ExtResource( 4 )
@@ -377,8 +369,8 @@ expand = true
 stretch_mode = 5
 
 [node name="Eraser" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 268.0
-margin_right = 332.0
+margin_left = 207.0
+margin_right = 271.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 64, 0 )
 texture_normal = ExtResource( 6 )
@@ -386,6 +378,7 @@ expand = true
 stretch_mode = 5
 
 [node name="Clue" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
+visible = false
 margin_left = 380.0
 margin_right = 444.0
 margin_bottom = 100.0
@@ -406,8 +399,9 @@ __meta__ = {
 }
 
 [node name="Solve" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
-margin_left = 492.0
-margin_right = 556.0
+visible = false
+margin_left = 436.0
+margin_right = 500.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 64, 0 )
 texture_normal = ExtResource( 9 )
@@ -456,21 +450,124 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuPause"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_constants/separation = 32
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="MenuPause/VBoxContainer"]
-margin_top = 413.0
+margin_top = 308.0
 margin_right = 720.0
-margin_bottom = 713.0
+margin_bottom = 608.0
 rect_min_size = Vector2( 0, 300 )
 custom_fonts/font = SubResource( 8 )
 text = "PAUSE"
 align = 1
 
 [node name="Resume" parent="MenuPause/VBoxContainer" instance=ExtResource( 15 )]
-margin_top = 717.0
-margin_bottom = 867.0
+margin_top = 640.0
+margin_bottom = 790.0
 text = "Resume"
+
+[node name="Menu" parent="MenuPause/VBoxContainer" instance=ExtResource( 15 )]
+margin_top = 822.0
+margin_bottom = 972.0
+text = "Menu"
+
+[node name="MenuWin" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuWin"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 32
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="MenuWin/VBoxContainer"]
+margin_top = 193.0
+margin_right = 720.0
+margin_bottom = 493.0
+rect_min_size = Vector2( 0, 300 )
+custom_fonts/font = SubResource( 8 )
+text = "YOU WIN"
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuWin/VBoxContainer"]
+margin_top = 525.0
+margin_right = 720.0
+margin_bottom = 608.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="MenuWin/VBoxContainer/HBoxContainer"]
+margin_left = 212.0
+margin_right = 355.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 7 )
+text = "Best"
+align = 1
+valign = 1
+
+[node name="Best" type="Label" parent="MenuWin/VBoxContainer/HBoxContainer"]
+margin_left = 387.0
+margin_right = 507.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 7 )
+text = "750"
+align = 1
+valign = 1
+
+[node name="NewRecord" type="TextureRect" parent="MenuWin/VBoxContainer/HBoxContainer"]
+visible = false
+margin_left = 491.0
+margin_right = 555.0
+margin_bottom = 83.0
+texture = ExtResource( 16 )
+stretch_mode = 6
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MenuWin/VBoxContainer"]
+margin_top = 640.0
+margin_right = 720.0
+margin_bottom = 723.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="Label" type="Label" parent="MenuWin/VBoxContainer/HBoxContainer2"]
+margin_left = 203.0
+margin_right = 364.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 7 )
+text = "Time"
+align = 1
+valign = 1
+
+[node name="TimeWin" type="Label" parent="MenuWin/VBoxContainer/HBoxContainer2"]
+margin_left = 396.0
+margin_right = 516.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 7 )
+text = "750"
+align = 1
+valign = 1
+
+[node name="NewGame" parent="MenuWin/VBoxContainer" instance=ExtResource( 15 )]
+margin_top = 755.0
+margin_bottom = 905.0
+text = "New Game"
+
+[node name="Menu" parent="MenuWin/VBoxContainer" instance=ExtResource( 15 )]
+margin_top = 937.0
+margin_bottom = 1087.0
+text = "Menu"

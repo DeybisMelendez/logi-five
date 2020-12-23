@@ -6,7 +6,6 @@ onready var Check = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Check
 onready var Eraser = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Eraser
 onready var Clue = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Clue
 onready var Solve = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Solve
-onready var YouWin = $VBoxContainer2/VBoxContainer/YouWin
 onready var New = $VBoxContainer2/Panel/HBoxContainer3/New
 onready var Anim = $AnimationPlayer
 onready var Time = $VBoxContainer2/VBoxContainer/Time
@@ -16,15 +15,21 @@ onready var MenuPause = $MenuPause
 onready var Resume = $MenuPause/VBoxContainer/Resume
 onready var Diff = $VBoxContainer2/Panel/HBoxContainer3/Diff
 onready var SolveText = $VBoxContainer2/VBoxContainer/Solve
+onready var MenuWin = $MenuWin
+onready var Best = $MenuWin/VBoxContainer/HBoxContainer/Best
+onready var TimeWin = $MenuWin/VBoxContainer/HBoxContainer2/TimeWin
+onready var NewRecord = $MenuWin/VBoxContainer/HBoxContainer/NewRecord
+onready var NewGame = $MenuWin/VBoxContainer/NewGame
+onready var HomePause = $MenuPause/VBoxContainer/Menu
+onready var HomeWin = $MenuWin/VBoxContainer/Menu
 const HOME_PATH = "res://scenes/main/Main.tscn"
 
-#var solution = ""
 var time = 0
 var diff = Globals.actual_difficulty
 var data = Globals.user_data.diff[diff]
 var solve_mode = false
 var used_solve_mode = false
-
+var stats = Globals.stats.diff[diff]
 func _ready():
 	config_level()
 	Home.connect("button_up", self, "go_home")
@@ -36,6 +41,9 @@ func _ready():
 	Pause.connect("button_up", self, "pause")
 	Resume.connect("button_up", self, "resume")
 	Solve.connect("button_up", self, "solve_game")
+	NewGame.connect("button_up", self, "reload")
+	HomePause.connect("button_up", self, "go_home")
+	HomeWin.connect("button_up", self, "go_home")
 
 func pause():
 	CountTime.stop()
@@ -64,7 +72,6 @@ func solve_game():
 	for i in Cells.size():
 		Cells[i].solved(data.solution[i])
 	check_solution()
-	YouWin.hide()
 
 func solve_cell(cell):
 	var i = Cells.find(cell)
@@ -106,17 +113,35 @@ func check_solution():
 		for cell in Cells:
 			if cell.state == "editable":
 				cell.solved(cell.get_number())
-		YouWin.show()
-		Clue.hide()
-		Solve.hide()
-		Check.hide()
-		Eraser.hide()
 		reset_user_data()
 		CountTime.stop()
 		Globals.save_game()
-		
+		MenuWin.show()
+		var best = check_best_time()
+		if best:
+			Best.text = str(time)
+			NewRecord.show()
+			stats.best = time
+		else:
+			Best.text = str(get_best_time())
+		TimeWin.text = str(time)
+		stats.history.append(time)
+		Globals.save_stats()
 	else:
 		Anim.play("incorrect")
+
+func get_best_time():
+	var best = 10000000
+	for before in stats.history:
+		if before < best:
+			best = before
+	return best
+
+func check_best_time():
+	for before in stats.history:
+		if before < time:
+			return false
+	return true
 
 func config_level():
 	Diff.text = Globals.actual_difficulty
@@ -133,6 +158,7 @@ func generate_level(l):
 	var level = Globals.levels[l]
 	level = level.split(" ", false)
 	if data.game == "":
+		randomize()
 		var rots = randi()%5
 		data.conf = rot(level[0], rots)
 		data.solution = rot(level[1], rots)
