@@ -11,7 +11,7 @@ onready var New = $VBoxContainer2/Panel/HBoxContainer3/New
 onready var Anim = $AnimationPlayer
 onready var Time = $VBoxContainer2/VBoxContainer/Time
 onready var CountTime = $CountTime
-onready var Pause = $MenuPause
+onready var Pause = $VBoxContainer2/Panel/HBoxContainer3/Pause
 onready var MenuPause = $MenuPause
 onready var Resume = $MenuPause/VBoxContainer/Resume
 onready var Diff = $VBoxContainer2/Panel/HBoxContainer3/Diff
@@ -23,6 +23,7 @@ var time = 0
 var diff = Globals.actual_difficulty
 var data = Globals.user_data.diff[diff]
 var solve_mode = false
+var used_solve_mode = false
 
 func _ready():
 	config_level()
@@ -34,6 +35,7 @@ func _ready():
 	CountTime.connect("timeout", self, "timeout")
 	Pause.connect("button_up", self, "pause")
 	Resume.connect("button_up", self, "resume")
+	Solve.connect("button_up", self, "solve_game")
 
 func pause():
 	CountTime.stop()
@@ -46,29 +48,42 @@ func resume():
 func timeout():
 	time += 1
 	Time.text = str(time)
-	Globals.user_data.diff[diff].time = time
+	data.time = time
 	Globals.save_game()
 
 func clue():
-	if Globals.user_data.clues > 0:
-		SolveText.show()
-		solve_mode = true
+	if solve_mode:
+		solve_mode = false
+		SolveText.hide()
+	else:
+		if data.clues > 0:
+			SolveText.show()
+			solve_mode = true
+
+func solve_game():
+	for i in Cells.size():
+		Cells[i].solved(data.solution[i])
+	check_solution()
+	YouWin.hide()
 
 func solve_cell(cell):
 	var i = Cells.find(cell)
-	cell.solved(Globals.user_data.diff[diff].solution[i])
-	Globals.user_data.clues -= 1
+	cell.solved(data.solution[i])
+	data.solved_cells.append(i)
+	data.clues -= 1
 	update_clues()
 	save_actual_game()
 	SolveText.hide()
 	solve_mode = false
+	if !used_solve_mode:
+		used_solve_mode = true
 
 func reload():
 	reset_user_data()
-	get_tree().reload_current_scene()
+	Background.reload()
 
 func go_home():
-	get_tree().change_scene(HOME_PATH)
+	Background.change_scene(HOME_PATH)
 
 func erase():
 	for cell in Cells:
@@ -77,16 +92,17 @@ func erase():
 	save_actual_game()
 
 func reset_user_data():
-	Globals.user_data.diff[diff].game = ""
-	Globals.user_data.diff[diff].showed_cells = []
-	Globals.user_data.diff[diff].time = 0
-	Globals.user_data.diff[diff].level = -1
+	data.game = ""
+	data.showed_cells = []
+	data.time = 0
+	data.level = -1
+	data.clues = 5
 
 func check_solution():
 	var user_solution = ""
 	for cell in Cells:
 		user_solution += cell.get_number()
-	if Globals.user_data.diff[diff].solution == user_solution:
+	if data.solution == user_solution:
 		for cell in Cells:
 			if cell.state == "editable":
 				cell.solved(cell.get_number())
@@ -104,26 +120,24 @@ func check_solution():
 
 func config_level():
 	Diff.text = Globals.actual_difficulty
-	time = Globals.user_data.diff[diff].time
+	time = data.time
 	Time.text = str(time)
-	if Globals.user_data.diff[diff].level == -1:
+	if data.level == -1:
 		generate_level(randi()%Globals.levels.size())
 	else:
-		generate_level(Globals.user_data.diff[diff].level)
+		generate_level(data.level)
 	update_clues()
 
 func generate_level(l):
-	Globals.user_data.diff[diff].level = l
+	data.level = l
 	var level = Globals.levels[l]
 	level = level.split(" ", false)
-	var data = Globals.user_data.diff[diff]
 	if data.game == "":
 		var rots = randi()%5
-		Globals.user_data.diff[diff].conf = rot(level[0], rots)
-		Globals.user_data.diff[diff].solution = rot(level[1], rots)
-		var conf = Globals.user_data.diff[diff].conf
-		for index in conf.length():
-			Cells[index].set_color(conf[index])
+		data.conf = rot(level[0], rots)
+		data.solution = rot(level[1], rots)
+		for index in data.conf.length():
+			Cells[index].set_color(data.conf[index])
 		var solved_cells = []
 		var nums = 0
 		match diff:
@@ -155,7 +169,7 @@ func generate_level(l):
 				Cells[i].set_number(num)
 
 func update_clues():
-	Clue.get_node("Label").text = str(Globals.user_data.clues)
+	Clue.get_node("Label").text = str(data.clues)
 
 func save_actual_game():
 	var actual_conf = ""
@@ -167,9 +181,9 @@ func save_actual_game():
 		actual_conf += num
 		if Cells[i].state == "solved":
 			showed_cells.append(i)
-	Globals.user_data.diff[diff].game = actual_conf
-	Globals.user_data.diff[diff].showed_cells = showed_cells
-	Globals.user_data.diff[diff].time = time
+	data.game = actual_conf
+	data.showed_cells = showed_cells
+	data.time = time
 	Globals.save_game()
 
 func rot(s, times):

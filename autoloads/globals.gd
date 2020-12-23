@@ -2,8 +2,6 @@ extends Node
 var actual_difficulty = "Hard"
 var levels = []
 var user_data = {
-	trophies = 0,
-	clues = 5,
 	diff = {
 		Easy = {
 			game = "",
@@ -11,7 +9,8 @@ var user_data = {
 			conf = "",
 			solution = "",
 			time = 0,
-			level = -1
+			level = -1,
+			clues = 5
 		},
 		Medium = {
 			game = "",
@@ -19,7 +18,8 @@ var user_data = {
 			conf = "",
 			solution = "",
 			time = 0,
-			level = -1
+			level = -1,
+			clues = 5
 		},
 		Hard = {
 			game = "",
@@ -27,7 +27,28 @@ var user_data = {
 			conf = "",
 			solution = "",
 			time = 0,
-			level = -1
+			level = -1,
+			clues = 5
+		}
+	}
+}
+
+var stats = {
+	diff = {
+		Hard = {
+			trophies = 0,
+			best = [],
+			history = []
+		},
+		Medium = {
+			trophies = 0,
+			best = [],
+			history = []
+		},
+		Easy = {
+			trophies = 0,
+			best = [],
+			history = []
 		}
 	}
 }
@@ -49,7 +70,8 @@ var colors = {
 
 func _ready():
 	load_levels()
-	load_game()
+	user_data = load_file("user://user.dat", user_data)
+	stats = load_file("user://stats.dat", stats)
 
 func load_levels():
 	var f = File.new()
@@ -58,17 +80,19 @@ func load_levels():
 	f.close()
 
 func save_game():
+	save_file("user://user.dat", user_data)
+
+func save_file(file_path, data):
 	var f = File.new()
-	f.open("user://user.dat", File.WRITE)
-	f.store_var(user_data)
+	f.open(file_path, File.WRITE)
+	f.store_var(data)
 	f.close()
 
-func load_game():
+func load_file(file_path, none):
 	var f = File.new()
-	if !f.file_exists("user://user.dat"):
-		return
-	f.open("user://user.dat", File.READ)
-	user_data = f.get_var()
+	if !f.file_exists(file_path):
+		return none
+	f.open(file_path, File.READ)
+	var data = f.get_var()
 	f.close()
-
-
+	return data

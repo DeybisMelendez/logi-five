@@ -14,10 +14,10 @@ func _ready():
 	Easy.connect("button_up", self, "easy")
 
 func back():
-	get_tree().change_scene(MAIN_PATH)
+	Background.change_scene(MAIN_PATH)
 
 func level():
-	get_tree().change_scene(LEVEL_PATH)
+	Background.change_scene(LEVEL_PATH)
 
 func hard():
 	Globals.actual_difficulty = "Hard"
