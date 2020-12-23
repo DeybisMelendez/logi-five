@@ -1,11 +1,8 @@
 extends Control
 
 onready var Cells = $VBoxContainer2/VBoxContainer/Cells.get_children()
-onready var Home = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Home
 onready var Check = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Check
 onready var Eraser = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Eraser
-onready var Clue = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Clue
-onready var Solve = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Solve
 onready var New = $VBoxContainer2/Panel/HBoxContainer3/New
 onready var Anim = $AnimationPlayer
 onready var Time = $VBoxContainer2/VBoxContainer/Time
@@ -14,7 +11,6 @@ onready var Pause = $VBoxContainer2/Panel/HBoxContainer3/Pause
 onready var MenuPause = $MenuPause
 onready var Resume = $MenuPause/VBoxContainer/Resume
 onready var Diff = $VBoxContainer2/Panel/HBoxContainer3/Diff
-onready var SolveText = $VBoxContainer2/VBoxContainer/Solve
 onready var MenuWin = $MenuWin
 onready var Best = $MenuWin/VBoxContainer/HBoxContainer/Best
 onready var TimeWin = $MenuWin/VBoxContainer/HBoxContainer2/TimeWin
@@ -22,25 +18,22 @@ onready var NewRecord = $MenuWin/VBoxContainer/HBoxContainer/NewRecord
 onready var NewGame = $MenuWin/VBoxContainer/NewGame
 onready var HomePause = $MenuPause/VBoxContainer/Menu
 onready var HomeWin = $MenuWin/VBoxContainer/Menu
+
 const HOME_PATH = "res://scenes/main/Main.tscn"
 
 var time = 0
 var diff = Globals.actual_difficulty
 var data = Globals.user_data.diff[diff]
-var solve_mode = false
-var used_solve_mode = false
 var stats = Globals.stats.diff[diff]
+
 func _ready():
 	config_level()
-	Home.connect("button_up", self, "go_home")
 	Eraser.connect("button_up", self, "erase")
 	Check.connect("button_up",self, "check_solution")
-	Clue.connect("button_up", self, "clue")
 	New.connect("button_up", self, "reload")
 	CountTime.connect("timeout", self, "timeout")
 	Pause.connect("button_up", self, "pause")
 	Resume.connect("button_up", self, "resume")
-	Solve.connect("button_up", self, "solve_game")
 	NewGame.connect("button_up", self, "reload")
 	HomePause.connect("button_up", self, "go_home")
 	HomeWin.connect("button_up", self, "go_home")
@@ -59,32 +52,6 @@ func timeout():
 	data.time = time
 	Globals.save_game()
 
-func clue():
-	if solve_mode:
-		solve_mode = false
-		SolveText.hide()
-	else:
-		if data.clues > 0:
-			SolveText.show()
-			solve_mode = true
-
-func solve_game():
-	for i in Cells.size():
-		Cells[i].solved(data.solution[i])
-	check_solution()
-
-func solve_cell(cell):
-	var i = Cells.find(cell)
-	cell.solved(data.solution[i])
-	data.solved_cells.append(i)
-	data.clues -= 1
-	update_clues()
-	save_actual_game()
-	SolveText.hide()
-	solve_mode = false
-	if !used_solve_mode:
-		used_solve_mode = true
-
 func reload():
 	reset_user_data()
 	Background.reload()
@@ -100,7 +67,7 @@ func erase():
 
 func reset_user_data():
 	data.game = ""
-	data.showed_cells = []
+	data.solved_cells = []
 	data.time = 0
 	data.level = -1
 	data.clues = 5
@@ -151,7 +118,6 @@ func config_level():
 		generate_level(randi()%Globals.levels.size())
 	else:
 		generate_level(data.level)
-	update_clues()
 
 func generate_level(l):
 	data.level = l
@@ -194,21 +160,18 @@ func generate_level(l):
 			else:
 				Cells[i].set_number(num)
 
-func update_clues():
-	Clue.get_node("Label").text = str(data.clues)
-
 func save_actual_game():
 	var actual_conf = ""
-	var showed_cells = []
+	var solved_cells = []
 	for i in Cells.size():
 		var num = Cells[i].get_number()
 		if num == "":
 			num = "-"
 		actual_conf += num
 		if Cells[i].state == "solved":
-			showed_cells.append(i)
+			solved_cells.append(i)
 	data.game = actual_conf
-	data.showed_cells = showed_cells
+	data.solved_cells = solved_cells
 	data.time = time
 	Globals.save_game()
 

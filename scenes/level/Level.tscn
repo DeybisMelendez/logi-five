@@ -1,14 +1,11 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://bodies/cell/Cell.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/level/Level.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Roboto/Roboto-Black.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/images/check.png" type="Texture" id=4]
-[ext_resource path="res://assets/fonts/Roboto/Roboto-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://assets/images/eraser.png" type="Texture" id=6]
 [ext_resource path="res://assets/images/plus.png" type="Texture" id=7]
-[ext_resource path="res://assets/images/house.png" type="Texture" id=8]
-[ext_resource path="res://assets/images/power.png" type="Texture" id=9]
 [ext_resource path="res://assets/fonts/Roboto/Level.tres" type="DynamicFont" id=10]
 [ext_resource path="res://assets/styles/panel.tres" type="StyleBox" id=11]
 [ext_resource path="res://assets/images/wallpaper.jpeg" type="Texture" id=12]
@@ -23,25 +20,6 @@ bg_color = Color( 0.129412, 0.105882, 0.32549, 1 )
 [sub_resource type="DynamicFont" id=2]
 size = 64
 font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=3]
-size = 72
-use_mipmaps = true
-use_filter = true
-font_data = ExtResource( 3 )
-
-[sub_resource type="StreamTexture" id=4]
-flags = 4
-load_path = "res://.import/lamp2.png-322da9a5ff0d28e81e536f2fd3a3505f.stex"
-
-[sub_resource type="DynamicFont" id=5]
-size = 32
-outline_size = 2
-outline_color = Color( 0.8, 0.639216, 0.207843, 1 )
-use_mipmaps = true
-use_filter = true
-extra_spacing_top = 6
-font_data = ExtResource( 5 )
 
 [sub_resource type="Animation" id=6]
 length = 0.5
@@ -164,18 +142,6 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
 text = "1:20:30"
-align = 1
-
-[node name="Solve" type="Label" parent="VBoxContainer2/VBoxContainer"]
-visible = false
-margin_top = 138.0
-margin_right = 720.0
-margin_bottom = 223.0
-custom_fonts/font = SubResource( 3 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 5
-custom_constants/shadow_offset_y = 5
-text = "Touch a cell to solve"
 align = 1
 
 [node name="Cells" type="GridContainer" parent="VBoxContainer2/VBoxContainer"]
@@ -349,16 +315,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Home" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
-visible = false
-margin_left = 31.0
-margin_right = 95.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 64, 0 )
-texture_normal = ExtResource( 8 )
-expand = true
-stretch_mode = 5
-
 [node name="Check" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
 margin_left = 79.0
 margin_right = 143.0
@@ -374,37 +330,6 @@ margin_right = 271.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 64, 0 )
 texture_normal = ExtResource( 6 )
-expand = true
-stretch_mode = 5
-
-[node name="Clue" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
-visible = false
-margin_left = 380.0
-margin_right = 444.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 64, 0 )
-texture_normal = SubResource( 4 )
-expand = true
-stretch_mode = 5
-
-[node name="Label" type="Label" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Clue"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_fonts/font = SubResource( 5 )
-text = "5
-"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Solve" type="TextureButton" parent="VBoxContainer2/VBoxContainer/Panel/HBoxContainer"]
-visible = false
-margin_left = 436.0
-margin_right = 500.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 64, 0 )
-texture_normal = ExtResource( 9 )
 expand = true
 stretch_mode = 5
 

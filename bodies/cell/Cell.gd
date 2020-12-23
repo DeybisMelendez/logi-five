@@ -14,36 +14,23 @@ func set_number(number):
 func get_number():
 	return Number.text
 
-func lock():
-	state = "locked"
-	var font = load("res://assets/fonts/Roboto/CellBold.tres")
-	Number.add_font_override("font", font)
-	#Number.add_color_override("font_color", Color)
-	Btn.disabled = true
-
 func solved(solution):
 	set_number(solution)
-	lock()
+	var font = load("res://assets/fonts/Roboto/CellBold.tres")
+	Number.add_font_override("font", font)
+	Btn.disabled = true
 	state = "solved"
 
 func _ready():
 	Btn.connect("button_up", self, "pressed")
-	match state:
-		"locked":
-			pass
-		"solved":
-			pass
 
 func pressed():
 	if state == "editable":
-		if get_tree().current_scene.solve_mode:
-			get_tree().current_scene.solve_cell(self)
+		if Number.text == "":
+			Number.text = "1"
+		elif Number.text == "5":
+			Number.text = ""
 		else:
-			if Number.text == "":
-				Number.text = "1"
-			elif Number.text == "5":
-				Number.text = ""
-			else:
-				var n = int(Number.text) + 1
-				Number.text = str(n)
-	get_tree().current_scene.save_actual_game()
+			var n = int(Number.text) + 1
+			Number.text = str(n)
+		get_tree().current_scene.save_actual_game()
