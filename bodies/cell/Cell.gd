@@ -22,12 +22,9 @@ func lock():
 	Btn.disabled = true
 
 func solved(solution):
-	state = "solved"
-	var font = load("res://assets/fonts/Roboto/CellBold.tres")
-	Number.add_font_override("font", font)
-	Number.add_color_override("font_color", Color.brown)
 	set_number(solution)
-	Btn.disabled = true
+	lock()
+	state = "solved"
 
 func _ready():
 	Btn.connect("button_up", self, "pressed")
@@ -39,11 +36,14 @@ func _ready():
 
 func pressed():
 	if state == "editable":
-		if Number.text == "":
-			Number.text = "1"
-		elif Number.text == "5":
-			Number.text = ""
+		if get_tree().current_scene.solve_mode:
+			get_tree().current_scene.solve_cell(self)
 		else:
-			var n = int(Number.text) + 1
-			Number.text = str(n)
+			if Number.text == "":
+				Number.text = "1"
+			elif Number.text == "5":
+				Number.text = ""
+			else:
+				var n = int(Number.text) + 1
+				Number.text = str(n)
 	get_tree().current_scene.save_actual_game()

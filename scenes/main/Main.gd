@@ -3,12 +3,12 @@ extends Control
 
 onready var Play = $VBoxContainer/Play
 onready var Continue = $VBoxContainer/Continue
-onready var Level = $HBoxContainer/Level
-var level_path = "res://scenes/level/Level.tscn"
+onready var Trophies = $HBoxContainer/Trophies
+const DIFF_PATH = "res://scenes/diff/Diff.tscn"
 
 func _ready():
 	Play.connect("button_up", self, "play")
-	Level.text = str(Globals.user_data.level)
+	Trophies.text = str(Globals.user_data.trophies)
 
 func play():
-	get_tree().change_scene(level_path)
+	get_tree().change_scene(DIFF_PATH)

@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/diff/Diff.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/wallpaper.jpeg" type="Texture" id=8]
+[ext_resource path="res://bodies/button/Button.tscn" type="PackedScene" id=9]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 64
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hard" parent="VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 244.0
+margin_bottom = 394.0
+text = "Hard"
+
+[node name="Medium" parent="VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 458.0
+margin_bottom = 608.0
+text = "Medium"
+
+[node name="Easy" parent="VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 672.0
+margin_bottom = 822.0
+text = "Easy"
+
+[node name="Back" parent="VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 886.0
+margin_bottom = 1036.0
+text = "Back"

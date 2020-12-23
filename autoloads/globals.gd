@@ -1,11 +1,35 @@
 extends Node
-
+var actual_difficulty = "Hard"
 var levels = []
 var user_data = {
-	level = 78,
+	trophies = 0,
 	clues = 5,
-	game = "",
-	showed_cells = []
+	diff = {
+		Easy = {
+			game = "",
+			solved_cells = [],
+			conf = "",
+			solution = "",
+			time = 0,
+			level = -1
+		},
+		Medium = {
+			game = "",
+			solved_cells = [],
+			conf = "",
+			solution = "",
+			time = 0,
+			level = -1
+		},
+		Hard = {
+			game = "",
+			solved_cells = [],
+			conf = "",
+			solution = "",
+			time = 0,
+			level = -1
+		}
+	}
 }
 
 var colors = {
