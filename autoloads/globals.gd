@@ -1,8 +1,10 @@
 extends Node
 var actual_difficulty = "Hard"
 var levels = []
-var user_data = {
+var conf = {
 	can_play_sound = true,
+}
+var user_data = {
 	diff = {
 		Easy = {
 			game = "",
@@ -73,6 +75,7 @@ func _ready():
 	load_levels()
 	user_data = load_file("user://user.dat", user_data)
 	stats = load_file("user://stats.dat", stats)
+	conf = load_file("user://config.dat", conf)
 
 func load_levels():
 	var f = File.new()
@@ -85,6 +88,9 @@ func save_game():
 
 func save_stats():
 	save_file("user://stats.dat", stats)
+
+func save_conf():
+	save_file("user://config.dat", conf)
 
 func save_file(file_path, data):
 	var f = File.new()
