@@ -1,6 +1,6 @@
 extends Control
-
-onready var Cells = $VBoxContainer2/VBoxContainer/Cells.get_children()
+onready var engine = $VBoxContainer2/VBoxContainer/Engine
+onready var Cells = $VBoxContainer2/VBoxContainer/Engine.get_children()
 onready var Check = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Check
 onready var Eraser = $VBoxContainer2/VBoxContainer/Panel/HBoxContainer/Eraser
 onready var New = $VBoxContainer2/Panel/HBoxContainer3/New
@@ -49,9 +49,12 @@ func resume():
 
 func timeout():
 	time += 1
+	update_time()
+	Globals.save_game()
+
+func update_time():
 	Time.text = str(time)
 	data.time = time
-	Globals.save_game()
 
 func reload():
 	reset_user_data()
@@ -62,23 +65,17 @@ func go_home():
 
 func erase():
 	Audio.play("Wrong")
-	for cell in Cells:
-		if cell.state == "editable":
-			cell.set_number("")
+	engine.erase()
 	save_actual_game()
 
 func reset_user_data():
-	data.game = ""
-	data.solved_cells = []
 	data.time = 0
-	data.level = -1
-	data.clues = 5
+	data.level_seed = -1
+	data.use_solution = ""
+	save_actual_game()
 
 func check_solution():
-	var user_solution = ""
-	for cell in Cells:
-		user_solution += cell.get_number()
-	if data.solution == user_solution:
+	if engine.check_solution():
 		Audio.play("Select")
 		for cell in Cells:
 			if cell.state == "editable":
@@ -118,78 +115,23 @@ func check_best_time():
 
 func config_level():
 	Diff.text = Globals.actual_difficulty
-	time = data.time
-	Time.text = str(time)
-	if data.level == -1:
-		generate_level(randi()%Globals.levels.size())
+	if data.level_seed == -1:
+		data.level_seed = new_seed()
+		engine.generate_level("")
+		Globals.save_game()
 	else:
-		generate_level(data.level)
+		seed(data.level_seed)
+		engine.generate_level(data.user_solution)
+		time = data.time
+	update_time()
 
-func generate_level(l):
-	data.level = l
-	var level = Globals.levels[l]
-	level = level.split(" ", false)
-	if data.game == "":
-		randomize()
-		var rots = randi()%5
-		data.conf = rot(level[0], rots)
-		data.solution = rot(level[1], rots)
-		for index in data.conf.length():
-			Cells[index].set_color(data.conf[index])
-		var solved_cells = []
-		var nums = 0
-		match diff:
-			"Hard":
-				nums = 5+randi()%2
-			"Medium":
-				nums = 8+randi()%3
-			"Easy":
-				nums = 12+randi()%4
-		for i in nums:
-			var index = randi()%25
-			while solved_cells.has(index):
-				index = randi()%25
-			solved_cells.append(index)
-		data.solved_cells = solved_cells
-		for i in solved_cells:
-			Cells[i].solved(data.solution[i])
-		save_actual_game()
-	else:
-		for index in data.conf.length():
-			Cells[index].set_color(data.conf[index])
-		for i in data.game.length():
-			var num = data.game[i]
-			if num == "-":
-				num = ""
-			if data.solved_cells.has(i):
-				Cells[i].solved(num)
-			else:
-				Cells[i].set_number(num)
+func new_seed():
+	randomize()
+	var random_seed = randi()
+	seed(random_seed)
+	return random_seed
 
 func save_actual_game():
-	var actual_conf = ""
-	var solved_cells = []
-	for i in Cells.size():
-		var num = Cells[i].get_number()
-		if num == "":
-			num = "-"
-		actual_conf += num
-		if Cells[i].state == "solved":
-			solved_cells.append(i)
-	data.game = actual_conf
-	data.solved_cells = solved_cells
+	data.user_solution = engine.get_user_solution()
 	data.time = time
 	Globals.save_game()
-
-func rot(s, times):
-	if times == 0:
-		return s
-	var result = ""
-	var columns = [0,1,2,3,4]
-	for _i in times:
-		for i in columns:
-			for j in 5:
-				result += s[i+j*5]
-		s = result + ""
-		result = ""
-	return s

@@ -1,0 +1,158 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://bodies/engine/engine.gd" type="Script" id=1]
+[ext_resource path="res://bodies/cell/Cell.tscn" type="PackedScene" id=2]
+
+[node name="Engine" type="GridContainer"]
+margin_top = 196.0
+margin_right = 720.0
+margin_bottom = 916.0
+rect_min_size = Vector2( 720, 720 )
+size_flags_horizontal = 4
+custom_constants/vseparation = 10
+custom_constants/hseparation = 10
+columns = 5
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cell" parent="." instance=ExtResource( 2 )]
+margin_right = 136.0
+margin_bottom = 136.0
+
+[node name="Cell2" parent="." instance=ExtResource( 2 )]
+margin_left = 146.0
+margin_right = 282.0
+margin_bottom = 136.0
+
+[node name="Cell3" parent="." instance=ExtResource( 2 )]
+margin_left = 292.0
+margin_right = 428.0
+margin_bottom = 136.0
+
+[node name="Cell4" parent="." instance=ExtResource( 2 )]
+margin_left = 438.0
+margin_right = 574.0
+margin_bottom = 136.0
+
+[node name="Cell5" parent="." instance=ExtResource( 2 )]
+margin_left = 584.0
+margin_right = 720.0
+margin_bottom = 136.0
+
+[node name="Cell6" parent="." instance=ExtResource( 2 )]
+margin_top = 146.0
+margin_right = 136.0
+margin_bottom = 282.0
+
+[node name="Cell7" parent="." instance=ExtResource( 2 )]
+margin_left = 146.0
+margin_top = 146.0
+margin_right = 282.0
+margin_bottom = 282.0
+
+[node name="Cell8" parent="." instance=ExtResource( 2 )]
+margin_left = 292.0
+margin_top = 146.0
+margin_right = 428.0
+margin_bottom = 282.0
+
+[node name="Cell9" parent="." instance=ExtResource( 2 )]
+margin_left = 438.0
+margin_top = 146.0
+margin_right = 574.0
+margin_bottom = 282.0
+
+[node name="Cell10" parent="." instance=ExtResource( 2 )]
+margin_left = 584.0
+margin_top = 146.0
+margin_right = 720.0
+margin_bottom = 282.0
+
+[node name="Cell11" parent="." instance=ExtResource( 2 )]
+margin_top = 292.0
+margin_right = 136.0
+margin_bottom = 428.0
+
+[node name="Cell12" parent="." instance=ExtResource( 2 )]
+margin_left = 146.0
+margin_top = 292.0
+margin_right = 282.0
+margin_bottom = 428.0
+
+[node name="Cell13" parent="." instance=ExtResource( 2 )]
+margin_left = 292.0
+margin_top = 292.0
+margin_right = 428.0
+margin_bottom = 428.0
+
+[node name="Cell14" parent="." instance=ExtResource( 2 )]
+margin_left = 438.0
+margin_top = 292.0
+margin_right = 574.0
+margin_bottom = 428.0
+
+[node name="Cell15" parent="." instance=ExtResource( 2 )]
+margin_left = 584.0
+margin_top = 292.0
+margin_right = 720.0
+margin_bottom = 428.0
+
+[node name="Cell16" parent="." instance=ExtResource( 2 )]
+margin_top = 438.0
+margin_right = 136.0
+margin_bottom = 574.0
+
+[node name="Cell17" parent="." instance=ExtResource( 2 )]
+margin_left = 146.0
+margin_top = 438.0
+margin_right = 282.0
+margin_bottom = 574.0
+
+[node name="Cell18" parent="." instance=ExtResource( 2 )]
+margin_left = 292.0
+margin_top = 438.0
+margin_right = 428.0
+margin_bottom = 574.0
+
+[node name="Cell19" parent="." instance=ExtResource( 2 )]
+margin_left = 438.0
+margin_top = 438.0
+margin_right = 574.0
+margin_bottom = 574.0
+
+[node name="Cell20" parent="." instance=ExtResource( 2 )]
+margin_left = 584.0
+margin_top = 438.0
+margin_right = 720.0
+margin_bottom = 574.0
+
+[node name="Cell21" parent="." instance=ExtResource( 2 )]
+margin_top = 584.0
+margin_right = 136.0
+margin_bottom = 720.0
+
+[node name="Cell22" parent="." instance=ExtResource( 2 )]
+margin_left = 146.0
+margin_top = 584.0
+margin_right = 282.0
+margin_bottom = 720.0
+
+[node name="Cell23" parent="." instance=ExtResource( 2 )]
+margin_left = 292.0
+margin_top = 584.0
+margin_right = 428.0
+margin_bottom = 720.0
+
+[node name="Cell24" parent="." instance=ExtResource( 2 )]
+margin_left = 438.0
+margin_top = 584.0
+margin_right = 574.0
+margin_bottom = 720.0
+
+[node name="Cell25" parent="." instance=ExtResource( 2 )]
+margin_left = 584.0
+margin_top = 584.0
+margin_right = 720.0
+margin_bottom = 720.0

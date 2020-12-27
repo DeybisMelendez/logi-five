@@ -7,31 +7,19 @@ var conf = {
 var user_data = {
 	diff = {
 		Easy = {
-			game = "",
-			solved_cells = [],
-			conf = "",
-			solution = "",
+			user_solution = "",
 			time = 0,
-			level = -1,
-			clues = 5
+			level_seed = -1,
 		},
 		Medium = {
-			game = "",
-			solved_cells = [],
-			conf = "",
-			solution = "",
+			user_solution = "",
 			time = 0,
-			level = -1,
-			clues = 5
+			level_seed = -1,
 		},
 		Hard = {
-			game = "",
-			solved_cells = [],
-			conf = "",
-			solution = "",
+			user_solution = "",
 			time = 0,
-			level = -1,
-			clues = 5
+			level_seed = -1,
 		}
 	}
 }
