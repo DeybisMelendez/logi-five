@@ -1,5 +1,6 @@
 extends Node
 var actual_difficulty = "Hard"
+var actual_level = 1
 var levels = []
 var conf = {
 	can_play_sound = true,
@@ -21,7 +22,8 @@ var user_data = {
 			time = 0,
 			level_seed = -1,
 		}
-	}
+	},
+	levels = {}
 }
 
 var stats = {
@@ -42,21 +44,6 @@ var stats = {
 			history = []
 		}
 	}
-}
-
-var colors = {
-	F=Color("ffff96"),
-	I=Color("9696ff"),
-	L=Color("ff9696"),
-	N=Color("0000c8"),
-	P=Color("96ff96"),
-	T=Color("96ffff"),
-	U=Color("ff96ff"),
-	V=Color("00c8c8"),
-	W=Color("00c800"),
-	X=Color("c80000"),
-	Y=Color("c800c8"),
-	Z=Color("c8c800"),
 }
 
 func _ready():

@@ -5,7 +5,6 @@
 [ext_resource path="res://assets/styles/Cell.tres" type="StyleBox" id=3]
 
 [node name="Cell" type="ColorRect"]
-self_modulate = Color( 1, 1, 1, 0.784314 )
 margin_right = 60.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 80, 80 )

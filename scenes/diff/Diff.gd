@@ -5,7 +5,7 @@ onready var Hard = $VBoxContainer/Hard
 onready var Medium = $VBoxContainer/Medium
 onready var Easy = $VBoxContainer/Easy
 const MAIN_PATH = "res://scenes/main/Main.tscn"
-const LEVEL_PATH = "res://scenes/level/Level.tscn"
+const LEVEL_PATH = "res://scenes/game/Game.tscn"
 
 func _ready():
 	Back.connect("button_up", self, "back")

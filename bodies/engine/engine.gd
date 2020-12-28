@@ -1,30 +1,69 @@
 extends GridContainer
 
 onready var Cells = get_children()
+
+const COLORS = [Color("ff3434"), Color("7dff27"), Color("00b9ff"),
+		Color("ffff29"), Color("ff18ce")]
+
 var levels = Globals.levels
 var diff = Globals.actual_difficulty
 var data = Globals.user_data.diff[diff]
 
 func check_solution():
-	var user_solution = ""
-	for cell in Cells:
-		user_solution += cell.get_number()
-	return data.solution == user_solution
+	var cols = [0,1,2,3,4]
+	for i in cols:
+		var result = []
+		for j in 5:
+			var cell = Cells[i + j*5]
+			var num = cell.get_number()
+			if num != "":
+				if !result.has(num):
+					result.append(num)
+		if result.size() != 5:
+			return false
+	var rows = [0,5,10,15,20]
+	for i in rows:
+		var result = []
+		for j in 5:
+			var cell = Cells[i + j]
+			var num = cell.get_number()
+			if num != "":
+				if !result.has(num):
+					result.append(num)
+		if result.size() != 5:
+			return false
+	for i in 5:
+		var result = []
+		var region = get_tree().get_nodes_in_group(str(i))
+		for cell in region:
+			var num = cell.get_number()
+			if num != "":
+				if !result.has(num):
+					result.append(num)
+		if result.size() != 5:
+			return false
+	return true
 
 func set_colors(conf):
-	for index in conf.length():
-		Cells[index].set_color(conf[index])
+	var letters = []
+	for value in conf:
+		if !letters.has(value):
+			letters.append(value)
+	for index in Cells.size():
+		var l = conf[index]
+		var n = letters.find(l)
+		Cells[index].set_color(COLORS[n], str(n))
 
 func set_solved_cells(solution):
 	var solved_cells = []
 	var nums = 0
 	match diff:
 		"Hard":
-			nums = 5+randi()%2
+			nums = 4+randi()%2
 		"Medium":
-			nums = 8+randi()%3
+			nums = 6+randi()%2
 		"Easy":
-			nums = 12+randi()%4
+			nums = 8+randi()%2
 	for i in nums:
 		var index = randi()%25
 		while solved_cells.has(index):

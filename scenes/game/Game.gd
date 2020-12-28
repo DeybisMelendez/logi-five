@@ -21,11 +21,9 @@ onready var HomeWin = $MenuWin/VBoxContainer/Menu
 
 const HOME_PATH = "res://scenes/main/Main.tscn"
 
-var level = Globals.actual_level
-var levels = Globals.user_data.levels
 var time = 0
 var diff = Globals.actual_difficulty
-var data = {}
+var data = Globals.user_data.diff[diff]
 var stats = Globals.stats.diff[diff]
 
 func _ready():
@@ -112,19 +110,24 @@ func check_best_time():
 	return true
 
 func config_level():
-	var new_seed = ("DeybisMelendez" + str(level)).hash()
-	seed(new_seed)
-	Diff.text = "Level " + str(level)
-	if level in levels.keys():
-		var data = Globals.user_data.levels[level]
+	Diff.text = Globals.actual_difficulty
+	if data.level_seed == -1:
+		data.level_seed = new_seed()
+		engine.generate_level("")
+		Globals.save_game()
+	else:
+		seed(data.level_seed)
 		engine.generate_level(data.user_solution)
 		time = data.time
-	else:
-		engine.generate_level("")
 	update_time()
+
+func new_seed():
+	randomize()
+	var random_seed = randi()
+	seed(random_seed)
+	return random_seed
 
 func save_actual_game():
 	data.user_solution = engine.get_user_solution()
 	data.time = time
-	levels[level] = data
 	Globals.save_game()

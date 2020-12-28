@@ -1,10 +1,9 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://bodies/engine/engine.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/level/Level.gd" type="Script" id=2]
+[ext_resource path="res://scenes/game/Game.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/Roboto/Roboto-Black.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://assets/images/check.png" type="Texture" id=4]
-[ext_resource path="res://assets/styles/TopPanel.tres" type="StyleBox" id=5]
 [ext_resource path="res://assets/images/eraser.png" type="Texture" id=6]
 [ext_resource path="res://assets/images/plus.png" type="Texture" id=7]
 [ext_resource path="res://assets/fonts/Roboto/Level.tres" type="DynamicFont" id=10]
@@ -14,6 +13,9 @@
 [ext_resource path="res://assets/images/pause.png" type="Texture" id=14]
 [ext_resource path="res://bodies/button/Button.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/images/new.png" type="Texture" id=16]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.129412, 0.105882, 0.32549, 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 64
@@ -50,7 +52,7 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 13 )
 
-[node name="Level" type="Control"]
+[node name="Game" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
@@ -79,7 +81,7 @@ __meta__ = {
 margin_right = 720.0
 margin_bottom = 120.0
 rect_min_size = Vector2( 0, 120 )
-custom_styles/panel = ExtResource( 5 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -186,6 +188,8 @@ anims/incorrect = SubResource( 3 )
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = -4.23785
+margin_bottom = -4.23779
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false

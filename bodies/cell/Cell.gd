@@ -5,8 +5,9 @@ onready var Btn = $Btn
 
 var state = "editable"
 
-func set_color(code):
-	color = Globals.colors[code]
+func set_color(c, group):
+	color = c
+	add_to_group(group)
 
 func set_number(number):
 	Number.text = number
