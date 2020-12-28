@@ -1,15 +1,20 @@
 extends TextureButton
 
 var level = 1
-var state = "locked"
-const SEED = "DeybisMelendez"
+const LEVEL_PATH = "res://scenes/level/Level.tscn"
 
 func _ready():
 	connect("button_up", self, "pressed")
-	if state == "locked":
-		disabled = true
-	else:
-		$Label.text = str(level)
+
+func lock():
+	disabled = true
+	$Label.text = ""
+
+func set_level(lvl):
+	disabled = false
+	level = lvl
+	$Label.text = str(lvl)
 
 func pressed():
 	Globals.actual_level = level
+	Background.change_scene(LEVEL_PATH)

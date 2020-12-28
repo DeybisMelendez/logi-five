@@ -6,8 +6,9 @@ const COLORS = [Color("ff3434"), Color("7dff27"), Color("00b9ff"),
 		Color("ffff29"), Color("ff18ce")]
 
 var levels = Globals.levels
-var diff = Globals.actual_difficulty
-var data = Globals.user_data.diff[diff]
+#var diff = Globals.actual_difficulty
+#var data = Globals.user_data.diff[diff]
+#var data = Globals.user_data.diff[diff]
 
 func check_solution():
 	var cols = [0,1,2,3,4]
@@ -57,7 +58,7 @@ func set_colors(conf):
 func set_solved_cells(solution):
 	var solved_cells = []
 	var nums = 0
-	match diff:
+	match Globals.actual_difficulty:
 		"Hard":
 			nums = 4+randi()%2
 		"Medium":

@@ -23,7 +23,8 @@ var user_data = {
 			level_seed = -1,
 		}
 	},
-	levels = {}
+	levels = [],
+	max_level = 1
 }
 
 var stats = {

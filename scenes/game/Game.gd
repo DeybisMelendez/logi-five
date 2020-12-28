@@ -44,6 +44,7 @@ func pause():
 	MenuPause.show()
 
 func resume():
+	Audio.play("Select")
 	CountTime.start()
 	MenuPause.hide()
 

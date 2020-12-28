@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://bodies/engine/engine.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/level/Level.gd" type="Script" id=2]
@@ -6,20 +6,17 @@
 [ext_resource path="res://assets/images/check.png" type="Texture" id=4]
 [ext_resource path="res://assets/styles/TopPanel.tres" type="StyleBox" id=5]
 [ext_resource path="res://assets/images/eraser.png" type="Texture" id=6]
-[ext_resource path="res://assets/images/plus.png" type="Texture" id=7]
-[ext_resource path="res://assets/fonts/Roboto/Level.tres" type="DynamicFont" id=10]
 [ext_resource path="res://assets/styles/panel.tres" type="StyleBox" id=11]
 [ext_resource path="res://assets/images/wallpaper.jpeg" type="Texture" id=12]
 [ext_resource path="res://assets/fonts/Roboto/Roboto-Bold.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://assets/images/pause.png" type="Texture" id=14]
 [ext_resource path="res://bodies/button/Button.tscn" type="PackedScene" id=15]
-[ext_resource path="res://assets/images/new.png" type="Texture" id=16]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 64
 font_data = ExtResource( 3 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("CenterContainer/Label:modulate")
@@ -34,7 +31,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 70
 outline_size = 4
 outline_color = Color( 0, 0, 0, 1 )
@@ -42,7 +39,7 @@ use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 13 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 120
 outline_size = 6
 outline_color = Color( 0, 0, 0, 1 )
@@ -103,20 +100,11 @@ texture_normal = ExtResource( 14 )
 expand = true
 stretch_mode = 5
 
-[node name="New" type="TextureButton" parent="VBoxContainer2/Panel/HBoxContainer3"]
-margin_left = 96.0
-margin_right = 160.0
-margin_bottom = 76.0
-rect_min_size = Vector2( 64, 0 )
-texture_normal = ExtResource( 7 )
-expand = true
-stretch_mode = 5
-
 [node name="Diff" type="Label" parent="VBoxContainer2/Panel/HBoxContainer3"]
-margin_left = 192.0
-margin_right = 331.0
+margin_left = 96.0
+margin_right = 235.0
 margin_bottom = 76.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "Hard"
 valign = 1
 
@@ -131,24 +119,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Time" type="Label" parent="VBoxContainer2/VBoxContainer"]
-margin_top = 107.0
-margin_right = 720.0
-margin_bottom = 164.0
-custom_fonts/font = ExtResource( 10 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 4
-custom_constants/shadow_offset_y = 4
-text = "0"
-align = 1
-
 [node name="Engine" parent="VBoxContainer2/VBoxContainer" instance=ExtResource( 1 )]
+margin_top = 152.0
+margin_bottom = 872.0
 
 [node name="Panel" type="Panel" parent="VBoxContainer2/VBoxContainer"]
 margin_left = 185.0
-margin_top = 948.0
+margin_top = 904.0
 margin_right = 535.0
-margin_bottom = 1048.0
+margin_bottom = 1004.0
 rect_min_size = Vector2( 350, 100 )
 size_flags_horizontal = 4
 custom_styles/panel = ExtResource( 11 )
@@ -181,7 +160,7 @@ expand = true
 stretch_mode = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/incorrect = SubResource( 3 )
+anims/incorrect = SubResource( 2 )
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
@@ -197,14 +176,11 @@ margin_left = 247.0
 margin_top = 598.0
 margin_right = 472.0
 margin_bottom = 681.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 0, 0, 1 )
 text = "Wrong!"
 align = 1
 valign = 1
-
-[node name="CountTime" type="Timer" parent="."]
-autostart = true
 
 [node name="MenuPause" type="TextureRect" parent="."]
 visible = false
@@ -231,7 +207,7 @@ margin_top = 308.0
 margin_right = 720.0
 margin_bottom = 608.0
 rect_min_size = Vector2( 0, 300 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "PAUSE"
 align = 1
 
@@ -266,78 +242,20 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="MenuWin/VBoxContainer"]
-margin_top = 193.0
+margin_top = 308.0
 margin_right = 720.0
-margin_bottom = 493.0
+margin_bottom = 608.0
 rect_min_size = Vector2( 0, 300 )
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "YOU WIN"
 align = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuWin/VBoxContainer"]
-margin_top = 525.0
-margin_right = 720.0
-margin_bottom = 608.0
-custom_constants/separation = 32
-alignment = 1
-
-[node name="Label" type="Label" parent="MenuWin/VBoxContainer/HBoxContainer"]
-margin_left = 212.0
-margin_right = 355.0
-margin_bottom = 83.0
-custom_fonts/font = SubResource( 4 )
-text = "Best"
-align = 1
-valign = 1
-
-[node name="Best" type="Label" parent="MenuWin/VBoxContainer/HBoxContainer"]
-margin_left = 387.0
-margin_right = 507.0
-margin_bottom = 83.0
-custom_fonts/font = SubResource( 4 )
-text = "750"
-align = 1
-valign = 1
-
-[node name="NewRecord" type="TextureRect" parent="MenuWin/VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 491.0
-margin_right = 555.0
-margin_bottom = 83.0
-texture = ExtResource( 16 )
-stretch_mode = 6
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="MenuWin/VBoxContainer"]
+[node name="Next" parent="MenuWin/VBoxContainer" instance=ExtResource( 15 )]
 margin_top = 640.0
-margin_right = 720.0
-margin_bottom = 723.0
-custom_constants/separation = 32
-alignment = 1
-
-[node name="Label" type="Label" parent="MenuWin/VBoxContainer/HBoxContainer2"]
-margin_left = 203.0
-margin_right = 364.0
-margin_bottom = 83.0
-custom_fonts/font = SubResource( 4 )
-text = "Time"
-align = 1
-valign = 1
-
-[node name="TimeWin" type="Label" parent="MenuWin/VBoxContainer/HBoxContainer2"]
-margin_left = 396.0
-margin_right = 516.0
-margin_bottom = 83.0
-custom_fonts/font = SubResource( 4 )
-text = "750"
-align = 1
-valign = 1
-
-[node name="NewGame" parent="MenuWin/VBoxContainer" instance=ExtResource( 15 )]
-margin_top = 755.0
-margin_bottom = 905.0
-text = "New Game"
+margin_bottom = 790.0
+text = "Next"
 
 [node name="Menu" parent="MenuWin/VBoxContainer" instance=ExtResource( 15 )]
-margin_top = 937.0
-margin_bottom = 1087.0
+margin_top = 822.0
+margin_bottom = 972.0
 text = "Menu"
