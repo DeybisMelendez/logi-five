@@ -55,7 +55,7 @@ func _ready():
 
 func load_levels():
 	var f = File.new()
-	f.open("levels.txt",File.READ)
+	f.open("res://levels.txt",File.READ)
 	levels = f.get_as_text().split("\n", false)
 	f.close()
 

@@ -32,9 +32,6 @@ func _ready():
 	HomeWin.connect("button_up", self, "go_home")
 
 func next():
-	if level == max_level:
-		Globals.user_data.max_level +=1
-		Globals.save_game()
 	Globals.actual_level += 1
 	Background.reload()
 
@@ -58,6 +55,9 @@ func check_solution():
 	if engine.check_solution():
 		Audio.play("Win")
 		MenuWin.show()
+		if level == max_level:
+			Globals.user_data.max_level +=1
+			Globals.save_game()
 	else:
 		Anim.play("incorrect")
 		Audio.play("Wrong")

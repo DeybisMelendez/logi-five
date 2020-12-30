@@ -52,9 +52,9 @@ text = "Levels"
 [node name="Tutorial" parent="VBoxContainer" instance=ExtResource( 9 )]
 margin_top = 852.0
 margin_bottom = 1002.0
-text = "Tutorial"
+text = "Rules"
 
 [node name="Statistics" parent="VBoxContainer" instance=ExtResource( 9 )]
 margin_top = 1034.0
 margin_bottom = 1184.0
-text = "Statistics"
+text = "Stats"
