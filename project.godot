@@ -10,14 +10,13 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
-
 }
 
 [application]
 
 config/name="Logi-5"
 config/description="Template from https://github.com/DeybisMelendez/godot-template"
-run/main_scene="res://scenes/main/Main.tscn"
+run/main_scene="res://scenes/splash/Splash.tscn"
 config/icon="res://icon.png"
 
 [autoload]
